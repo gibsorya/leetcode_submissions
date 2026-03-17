@@ -4,24 +4,40 @@
 def check_inclusion(s1, s2)
     return false if s1.length > s2.length
 
-    s1_count = Array.new(26, 0)
-    s1.each_char do |c|
-        s1_count[c.ord - 'a'.ord] += 1
+    s1_counts = Array.new(26, 0)
+    s2_counts = Array.new(26, 0)
+
+    for i in 0..(s1.length - 1) do
+        s1_counts[s1[i].ord - 97] += 1
+        s2_counts[s2[i].ord - 97] += 1
     end
 
-    window = Array.new(26, 0)
+    matches = 0
+    for i in 0..25 do
+        matches += 1 if s1_counts[i] == s2_counts[i]
+    end
+
     l = 0
+    for r in s1.length..(s2.length - 1) do
+        return true if matches == 26
 
-    for r in 0..(s2.length - 1) do
-        window[s2[r].ord - 'a'.ord] += 1
-
-        return true if window == s1_count
-
-        if (r - l) + 1 == s1.length
-            window[s2[l].ord - 'a'.ord] -= 1
-            l += 1
+        index = s2[r].ord - 97
+        s2_counts[index] += 1
+        if s1_counts[index] == s2_counts[index]
+            matches += 1
+        elsif s1_counts[index] + 1 == s2_counts[index]
+            matches -= 1
         end
+
+        index = s2[l].ord - 97
+        s2_counts[index] -= 1
+        if s1_counts[index] == s2_counts[index]
+            matches += 1
+        elsif s1_counts[index] - 1 == s2_counts[index]
+            matches -= 1
+        end
+        l += 1
     end
 
-    false
+    matches == 26
 end
