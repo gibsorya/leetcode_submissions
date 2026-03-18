@@ -10,18 +10,22 @@
 # @param {TreeNode} root
 # @return {Integer}
 def deepest_leaves_sum(root)
-    queue = Queue.new
-    queue << root
-
-    while !queue.empty?
+    q = []
+    q.push(root)
+    sum = 0
+    
+    while q.length != 0
+        size = q.length
         sum = 0
-        queue.size.times do
-            node = queue.pop
-            sum += node.val
-            queue.push(node.left) if node.left
-            queue.push(node.right) if node.right
+        for i in 0..(size - 1) do
+            node = q.shift
+            if node != nil
+                sum += node.val
+                q.push(node.left) if node.left
+                q.push(node.right) if node.right
+            end
         end
     end
-
+    
     sum
 end
