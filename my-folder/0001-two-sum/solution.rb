@@ -2,16 +2,12 @@
 # @param {Integer} target
 # @return {Integer[]}
 def two_sum(nums, target)
-    hash = {}
-    ans = []
-    nums.each_with_index do |num, i|
-        y = target - num
-        
-        if(hash[target - y])
-            ans = [hash[target - y],i]
+    sums = {}
+    nums.each_with_index do |num, index|
+        diff = target - num
+        if sums.has_key?(diff)
+            return [sums[diff], index]
         end
-
-        hash[y] = i
+        sums[num] = index
     end
-    ans
 end
