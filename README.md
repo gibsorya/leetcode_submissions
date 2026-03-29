@@ -1,1 +1,1 @@
-This repo is a collection of all my LeetCode submissions.
+This repo is a collection of all my LeetCode submissions, and also will (eventually) contain learning resources/notes for Data Structures & Algorithms, as well as my templates for solving LeetCode type problems.
